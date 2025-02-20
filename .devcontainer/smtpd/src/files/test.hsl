@@ -1,0 +1,2 @@
+import { pubsub_publish } from "extras://pubsub";
+echo pubsub_publish("project-id", "topic1", "This is a sample message.");

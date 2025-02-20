@@ -1,0 +1,5 @@
+*.so
+*.h
+/build/dist
+/build/vscode
+.devcontainer/smtpd/dist

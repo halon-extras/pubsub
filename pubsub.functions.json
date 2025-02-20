@@ -1,0 +1,26 @@
+[
+    {
+        "name": "pubsub_publish",
+        "parameters": {
+            "required": [
+                {
+                    "name": "project",
+                    "type": "string"
+                },
+                {
+                    "name": "topic",
+                    "type": "string"
+                },
+                {
+                    "name": "message",
+                    "type": "string"
+                }
+            ]
+        },
+        "returnType": "array",
+        "detail": "pubsub_publish(string $project, string $topic, string $message): array",
+        "value": "pubsub_publish($0)",
+        "documentation": "Publish a message to a topic asynchronously (Supports HSL suspend functionality).",
+        "link": "[Full documentation](https://github.com/halon-extras/pubsub)"
+    }
+]
