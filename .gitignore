@@ -3,3 +3,5 @@
 /build/dist
 /build/vscode
 .devcontainer/smtpd/dist
+!.devcontainer/smtpd/dist/.gitkeep
+
