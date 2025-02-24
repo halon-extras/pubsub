@@ -123,8 +123,10 @@ func pubsub_publish(hhc *C.HalonHSLContext, args *C.HalonHSLArguments, ret *C.Ha
 			for _, t := range c.Topics {
 				if t.Id == topicId {
 					topic = t.Topic
+					break;
 				}
 			}
+			break;
 		}
 	}
 
