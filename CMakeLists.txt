@@ -26,8 +26,13 @@ ENDIF()
 SET(CMAKE_BUILD_TYPE Release)
 
 ADD_CUSTOM_TARGET(go ALL
-	COMMAND ${CMAKE_COMMAND} -E env GOPATH=${GOPATH} /usr/local/go/bin/go build -buildmode c-shared -o ${CMAKE_CURRENT_BINARY_DIR}/pubsub.so
+	COMMAND ${CMAKE_COMMAND} -E env GOPATH=${GOPATH} go build -buildmode c-shared -o ${CMAKE_CURRENT_BINARY_DIR}/pubsub.so
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+ADD_CUSTOM_TARGET(sbom ALL
+	COMMAND ${CMAKE_COMMAND} -E env GOPATH=${GOPATH} cyclonedx-gomod app -json -packages -files -licenses -output "${CMAKE_CURRENT_BINARY_DIR}/sbom.json"
+	WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 IF(EXISTS "/etc/os-release")
@@ -40,6 +45,8 @@ ENDIF()
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/pubsub.so DESTINATION plugins)
 INSTALL(FILES pubsub.schema.json DESTINATION share/plugins)
 INSTALL(FILES pubsub.functions.json DESTINATION share/plugins)
+
+INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/sbom.json" DESTINATION /opt/halon/share/sbom RENAME pubsub.json)
 
 IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14.0") 
 	FILE(CREATE_LINK "/opt/halon/plugins/pubsub.so" "${CMAKE_CURRENT_BINARY_DIR}/pubsub.so.link" SYMBOLIC)
