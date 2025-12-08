@@ -46,7 +46,7 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/pubsub.so DESTINATION plugins)
 INSTALL(FILES pubsub.schema.json DESTINATION share/plugins)
 INSTALL(FILES pubsub.functions.json DESTINATION share/plugins)
 
-INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/sbom.json" DESTINATION /opt/halon/share/sbom RENAME pubsub.json)
+INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/sbom.json" DESTINATION share/sbom/plugins RENAME pubsub.json)
 
 IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14.0") 
 	FILE(CREATE_LINK "/opt/halon/plugins/pubsub.so" "${CMAKE_CURRENT_BINARY_DIR}/pubsub.so.link" SYMBOLIC)
