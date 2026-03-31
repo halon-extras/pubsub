@@ -1,6 +1,6 @@
 module github.com/halon-extras/pubsub
 
-go 1.24
+go 1.26
 
 require (
 	cloud.google.com/go v0.118.1 // indirect
