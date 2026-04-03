@@ -43,49 +43,8 @@ echo "${SHA256} go1.26.1.${TARGETOS}-${TARGETARCH}.tar.gz" | sha256sum -c
 tar -C /usr/local -xzf go1.26.1.${TARGETOS}-${TARGETARCH}.tar.gz
 EOF
 RUN /usr/local/go/bin/go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
+RUN /usr/local/go/bin/go install github.com/google/go-licenses/v2@latest
 ENV PATH="$PATH:/usr/local/go/bin:/root/go/bin"
-
-RUN mkdir /licenses
-RUN cp /usr/local/go/LICENSE /licenses/LICENSE.go
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/googleapis/google-cloud-go/refs/heads/main/LICENSE \
-    && cp LICENSE /licenses/LICENSE.google-cloud-go
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/felixge/httpsnoop/refs/heads/master/LICENSE.txt \
-    && cp LICENSE /licenses/LICENSE.httpsnoop
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/go-logr/logr/refs/heads/master/LICENSE \
-    && cp LICENSE /licenses/LICENSE.go-logr
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/google/s2a-go/refs/heads/main/LICENSE.md \
-    && cp LICENSE /licenses/LICENSE.s2a-go
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/google/uuid/refs/heads/master/LICENSE \
-    && cp LICENSE /licenses/LICENSE.uuid
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/googleapis/enterprise-certificate-proxy/refs/heads/main/LICENSE \
-    && cp LICENSE /licenses/LICENSE.enterprise-certificate-proxy
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/googleapis/gax-go/refs/heads/main/LICENSE \
-    && cp LICENSE /licenses/LICENSE.gax-go
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/census-instrumentation/opencensus-go/refs/heads/master/LICENSE \
-    && cp LICENSE /licenses/LICENSE.opencensus-go
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/open-telemetry/opentelemetry-go-instrumentation/refs/heads/main/LICENSE \
-    && cp LICENSE /licenses/LICENSE.opentelemetry-go-instrumentation
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/googleapis/google-api-go-client/refs/heads/main/LICENSE \
-    && cp LICENSE /licenses/LICENSE.google-api-go-client
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/googleapis/go-genproto/refs/heads/main/LICENSE \
-    && cp LICENSE /licenses/LICENSE.go-genproto
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/grpc/grpc-go/refs/heads/master/LICENSE \
-    && cp LICENSE /licenses/LICENSE.grpc-go
-RUN cd /tmp/halon \
-    && curl -O -L https://raw.githubusercontent.com/protocolbuffers/protobuf-go/refs/heads/master/LICENSE \
-    && cp LICENSE /licenses/LICENSE.protobuf-go
 
 RUN rm -rf /tmp/halon
 

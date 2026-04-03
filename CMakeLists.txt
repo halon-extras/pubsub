@@ -35,6 +35,11 @@ ADD_CUSTOM_TARGET(sbom ALL
 	WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
+ADD_CUSTOM_TARGET(licenses ALL
+	COMMAND ${CMAKE_COMMAND} -E env GOPATH=${GOPATH} rm -rf "${CMAKE_CURRENT_BINARY_DIR}/licenses" && go-licenses save . --save_path="${CMAKE_CURRENT_BINARY_DIR}/licenses"
+	WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
 IF(EXISTS "/etc/os-release")
 	EXECUTE_PROCESS(COMMAND "sed" "-ne" "s/^ID=\"\\?\\([a-z]\\+\\)\"\\?$/\\1/p" "/etc/os-release" OUTPUT_VARIABLE OS_RELEASE_ID OUTPUT_STRIP_TRAILING_WHITESPACE)
 	EXECUTE_PROCESS(COMMAND "sed" "-ne" "s/^VERSION_ID=\"\\?\\([0-9\\.]\\+\\)\"\\?$/\\1/p" "/etc/os-release" OUTPUT_VARIABLE OS_RELEASE_VERSION_ID OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -57,21 +62,7 @@ ENDIF()
 INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/pubsub.so.link" DESTINATION plugins/autoload/smtpd RENAME pubsub.so)
 INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/pubsub.so.link" DESTINATION plugins/autoload/hsh RENAME pubsub.so)
 
-INSTALL(FILES "LICENSE" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.go" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.google-cloud-go" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.httpsnoop" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.go-logr" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.s2a-go" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.uuid" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.enterprise-certificate-proxy" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.gax-go" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.opencensus-go" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.opentelemetry-go-instrumentation" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.google-api-go-client" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.go-genproto" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.grpc-go" DESTINATION share/doc/plugins/pubsub)
-INSTALL(FILES "/licenses/LICENSE.protobuf-go" DESTINATION share/doc/plugins/pubsub)
+INSTALL(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/licenses" DESTINATION share/doc/plugins/${PROJECT_NAME})
 
 SET(CMAKE_INSTALL_PREFIX "/opt/halon")
 SET(CPACK_PACKAGING_INSTALL_PREFIX "/opt/halon")
