@@ -6,11 +6,11 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "halon.vscode-halon",
         "halon.hsl-syntax",
+        "halon.vscode-halon",
         "halon.hsl-linter",
         "halon.hsl-debug",
-        "golang.Go"
+        "golang.go"
       ]
     }
   },
